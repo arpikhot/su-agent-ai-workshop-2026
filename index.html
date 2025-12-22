@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SU Agent-AI Workshop 2026 - Syracuse University</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: #0a0a1a;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 1.4em;
+            font-weight: 700;
+            padding: 20px 0;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-logo span {
+            color: #D44500;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 25px 25px;
+            display: block;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: #D44500;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 80%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(180deg, #0a0a1a 0%, #000E54 40%, #1a1a35 100%);
+            color: white;
+            padding: 80px 30px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212, 69, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(212, 69, 0, 0.1) 0%, transparent 50%);
+            animation: pulse 10s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-welcome {
+            font-size: 1.8em;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            color: #D44500;
+        }
+
+        .hero h1 {
+            font-size: 4.5em;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 25px;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 span {
+            display: block;
+        }
+
+        .hero-details {
+            display: flex;
+            gap: 50px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .detail-box {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .detail-label {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-size: 1.6em;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .detail-value .highlight {
+            color: #D44500;
+        }
+
+        .hero-description {
+            max-width: 1200px;
+            font-size: 1.15em;
+            line-height: 1.7;
+            margin: 30px 0;
+            opacity: 0.95;
+        }
+
+        .hero-cta {
+            font-size: 1.05em;
+            line-height: 1.7;
+            opacity: 0.9;
+            max-width: 1200px;
+        }
+
+        .register-section {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .register-invitation {
+            font-size: 1.15em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            opacity: 0.95;
+        }
+
+        .register-prompt {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .register-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #D44500 0%, #F76900 100%);
+            color: white;
+            padding: 18px 50px;
+            font-size: 1.2em;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(212, 69, 0, 0.3);
+        }
+
+        .register-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(212, 69, 0, 0.5);
+            background: linear-gradient(135deg, #F76900 0%, #D44500 100%);
+        }
+
+        /* Description Section */
+        .description-section {
+            background: white;
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            margin-top: 80px;
+        }
+
+        .description-title {
+            font-size: 2.5em;
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: #000E54;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .description-section p {
+            font-size: 1.05em;
+            line-height: 1.9;
+            color: #555;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .description-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Topics Section */
+        .topics-section {
+            background: linear-gradient(135deg, #000E54 0%, #003087 100%);
+            padding: 50px 60px;
+            border-radius: 15px;
+            margin-top: 40px;
+            color: white;
+        }
+
+        .topics-title {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .topics-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .topics-list li {
+            font-size: 1.05em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .topics-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #D44500;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .topics-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Section Styles */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 30px;
+        }
+
+        .section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            font-weight: 900;
+            margin-bottom: 40px;
+            margin-top: 20px;
+            color: #000E54;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        /* Schedule Table */
+        .schedule-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .schedule-table thead {
+            background: linear-gradient(135deg, #000E54 0%, #003087 100%);
+            color: white;
+        }
+
+        .schedule-table th {
+            padding: 20px 25px;
+            text-align: left;
+            font-size: 1.1em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .schedule-table td {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e8e8e8;
+            vertical-align: top;
+        }
+
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .schedule-table tbody tr:hover {
+            background: #fafafa;
+            transition: background 0.2s ease;
+        }
+
+        .time-cell {
+            font-weight: 700;
+            color: #D44500;
+            white-space: nowrap;
+            width: 180px;
+            font-size: 1em;
+        }
+
+        .event-title {
+            font-weight: 700;
+            color: #000E54;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .event-details {
+            color: #555;
+            line-height: 1.7;
+            font-size: 0.95em;
+        }
+
+        .speaker-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 1em;
+        }
+
+        .location {
+            color: #D44500;
+            font-weight: 600;
+        }
+
+        .break-row {
+            background: #fff5f0 !important;
+        }
+
+        .break-row .event-title {
+            color: #D44500;
+        }
+
+        /* Speakers Grid */
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-top: 40px;
+        }
+
+        .speaker-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(212, 69, 0, 0.15);
+        }
+
+        .speaker-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+        }
+
+        .speaker-info {
+            padding: 25px;
+        }
+
+        .speaker-name {
+            color: #D44500;
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .speaker-title {
+            color: #000E54;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 1em;
+        }
+
+        .speaker-affiliation {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .speaker-bio {
+            color: #555;
+            line-height: 1.7;
+            font-size: 0.9em;
+        }
+
+        .opening-speaker {
+            background: linear-gradient(135deg, #000E54 0%, #003087 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .opening-speaker h3 {
+            font-size: 1.5em;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .opening-speaker p {
+            font-size: 1em;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        /* Committee Section */
+        .committee-placeholder {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            padding: 50px;
+            border-radius: 15px;
+            text-align: center;
+            color: #666;
+            font-size: 1.1em;
+            margin-top: 30px;
+        }
+
+        /* Sponsors Section */
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .sponsor-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+
+        .sponsor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(212, 69, 0, 0.15);
+        }
+
+        .sponsor-logo {
+            max-width: 100%;
+            max-height: 120px;
+            object-fit: contain;
+        }
+
+        .sponsors-placeholder {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            padding: 50px;
+            border-radius: 15px;
+            text-align: center;
+            color: #666;
+            font-size: 1.1em;
+            margin-top: 30px;
+        }
+
+        /* Footer */
+        footer {
+            background: #000E54;
+            color: white;
+            text-align: center;
+            padding: 40px 30px;
+            margin-top: 100px;
+        }
+
+        footer p {
+            opacity: 0.9;
+            font-size: 0.95em;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1s ease-in forwards;
+            opacity: 0;
+        }
+
+        .fade-in-delay {
+            animation: fadeIn 1s ease-in 0.3s forwards;
+            opacity: 0;
+        }
+
+        .fade-in-delay-2 {
+            animation: fadeIn 1s ease-in 0.6s forwards;
+            opacity: 0;
+        }
+
+        .fade-in-delay-3 {
+            animation: fadeIn 1s ease-in 0.9s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3.5em;
+            }
+
+            .speakers-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #0a0a1a;
+                flex-direction: column;
+                gap: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            .nav-menu.active {
+                max-height: 400px;
+            }
+
+            .nav-menu a {
+                padding: 20px 30px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .hero {
+                padding: 60px 20px 70px;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+                letter-spacing: -1px;
+            }
+
+            .hero-welcome {
+                font-size: 1.4em;
+            }
+
+            .hero-details {
+                gap: 30px;
+            }
+
+            .detail-value {
+                font-size: 1.4em;
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+
+            .speakers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-table th,
+            .schedule-table td {
+                padding: 15px 20px;
+            }
+
+            .time-cell {
+                font-size: 0.95em;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">SU AGENT-AI WORKSHOP <span>2026</span></div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#about" class="active">About</a></li>
+                <li><a href="#schedule">Schedule</a></li>
+                <li><a href="#speakers">Speakers</a></li>
+                <li><a href="#sponsors">Sponsors</a></li>
+                <li><a href="#committee">Organizing Committee</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" id="about">
+        <div class="hero-content">
+            <div class="hero-welcome fade-in">Welcome to SU Agent-AI Workshop 2026</div>
+            <h1 class="fade-in">
+                <span>FROM MODELS TO</span>
+                <span>INTELLIGENT</span>
+                <span>AI AGENTS</span>
+            </h1>
+            
+            <div class="hero-details fade-in-delay">
+                <div class="detail-box">
+                    <div class="detail-label">Date & Time</div>
+                    <div class="detail-value">Friday, December 20, 2026<br>8:00AM – 1:00PM</div>
+                </div>
+                <div class="detail-box">
+                    <div class="detail-label">Location</div>
+                    <div class="detail-value">Center for Science and Technology<br>Syracuse University<br>Syracuse, NY</div>
+                </div>
+            </div>
+
+            <!-- <p class="hero-description fade-in-delay-2">
+                Discover modern agent architectures, tools, and workflows to turn AI into autonomous, goal-driven systems.
+            </p>
+
+            <p class="hero-cta fade-in-delay-3">
+                Don't miss this unique opportunity to connect, learn, and drive innovation through Agent AI in your community.
+            </p> -->
+
+            <div class="register-section fade-in-delay-3">
+                <p class="register-invitation">You are invited to join SU Agent AI Workshop 2026 - connect, learn, and drive innovation in your community.</p>
+                <p class="register-prompt">Please register to participate:</p>
+                <a href="YOUR_GOOGLE_FORM_LINK_HERE" target="_blank" class="register-button">Register Now</a>
+            </div>
+        </div>
+    </section>
+
+</section>
+
+    <div class="container">
+        
+        <div class="description-section">
+            <h2 class="description-title">About the Workshop</h2>
+
+            <p>SU Agent AI Workshop 2026 brings together students, researchers, practitioners, and industry professionals to explore the latest advances in autonomous and semi-autonomous AI agents. As agent-based systems increasingly shape real-world applications—from scientific discovery and decision support to software engineering and robotics—this workshop provides a focused forum for sharing ideas, methods, and emerging best practices.</p>
+            
+            <p>The program will feature five confirmed invited talks delivered by experts from academia and industry. Each talk will provide in-depth perspectives on cutting-edge topics in Agent AI, including agent architectures, reasoning and planning, multi-agent coordination, tool-augmented agents, learning in complex environments, safety, and real-world applications. Participants will gain insights into both foundational research and applied perspectives on building, evaluating, and deploying agent-based AI systems.</p>
+            
+            <p>The workshop serves as a platform for collaboration and community-building across disciplines. Attendees will have opportunities to engage with speakers, exchange ideas with peers, and discuss open problems and future directions in Agent AI research and development. Whether you are advancing theoretical foundations, developing practical agent systems, or exploring new applications, the SU Agent AI Workshop 2026 offers a valuable platform to learn, connect, and contribute to the evolving landscape of intelligent agents.</p>
+        </div>
+
+                <div class="topics-section">
+            <h3 class="topics-title">Topics of Interest</h3>
+            <ul class="topics-list">
+                <li>LLM Agents and Learning of LLM agents</li>
+                <li>Designing autonomous agents that can reason, plan, and act using modern frameworks and multi-agent systems.</li>
+                <li>Enabling agents to interact with APIs, databases, and external tools to perform real-world tasks autonomously.</li>
+                <li>Building systems where multiple AI agents coordinate, communicate, and solve complex problems together.</li>
+                <li>Open source software of LLM tool use and agents</li>
+            </ul>
+        </div>
+
+        <section class="section" id="schedule">
+            <h2 class="section-title">Schedule</h2>
+            <div class="schedule-container">
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Event</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell">8:00AM – 9:00AM</td>
+                            <td>
+                                <div class="event-title">Coffee and Networking</div>
+                                <div class="event-details">
+                                    <p>Meet in the lobby, get registered, enjoy some coffee, and meet your fellow attendees.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">9:00AM – 9:10AM</td>
+                            <td>
+                                <div class="event-title">Opening Remarks</div>
+                                <div class="event-details">
+                                    <p class="speaker-name">Professor Alex Jones</p>
+                                    <p>Chair, Department of Electrical Engineering and Computer Science (EECS)</p>
+                                    <p>Klaus Schroder Endowed Chair Professor</p>
+                                    <p>Engineering and Computer Science</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">9:10AM – 10:00AM</td>
+                            <td>
+                                <div class="event-title">Invited Talk (Topic to be finalized)</div>
+                                <div class="event-details">
+                                    <p class="speaker-name">Stephanie Vanwagner</p>
+                                    <p>Vice President, Turing Intelligence</p>
+                                    <p class="location">Palo Alto, California</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:00AM – 10:50AM</td>
+                            <td>
+                                <div class="event-title">Invited Talk (Topic to be finalized)</div>
+                                <div class="event-details">
+                                    <p class="speaker-name">Professor Haoyu Wang</p>
+                                    <p>Assistant Professor, Department of Computer Science</p>
+                                    <p>College of Nanotechnology, Science and Engineering</p>
+                                    <p>University at Albany, State University of New York</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">10:50AM - 11:00AM</td>
+                            <td>
+                                <div class="event-title">10 Minutes Break</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">11:00AM – 11:50AM</td>
+                            <td>
+                                <div class="event-title">Invited Talk (Topic to be finalized)</div>
+                                <div class="event-details">
+                                    <p class="speaker-name">Professor Jamison Heard</p>
+                                    <p>Assistant Professor, Department of Electrical and Microelectronic Engineering</p>
+                                    <p>Kate Gleason College of Engineering</p>
+                                    <p>Rochester Institute of Technology</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">12:00Noon – 12:50PM</td>
+                            <td>
+                                <div class="event-title">Invited Talk (Topic to be finalized)</div>
+                                <div class="event-details">
+                                    <p class="speaker-name">Professor Yuchen Wu</p>
+                                    <p>Assistant Professor, School of Operations Research and Information Engineering</p>
+                                    <p>Cornell University</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">12:50PM - 1:00PM</td>
+                            <td>
+                                <div class="event-title">Closing Remarks</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section" id="speakers">
+            <h2 class="section-title">Speakers</h2>
+            <div class="speakers-grid">
+                <div class="speaker-card">
+                    <img src="Alex Jones.jpeg" alt="Professor Alex K. Jones" class="speaker-img">
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Professor Alex K. Jones</h3>
+                        <p class="speaker-title">Klaus Schroder Endowed Professor for Engineering</p>
+                        <p class="speaker-affiliation">Chair – Department of Electrical and Computer Science<br>Syracuse University</p>
+                        <p class="speaker-bio">Professor Alex K. Jones serves as the Klaus Schroder Endowed Professor for Engineering and Chair of the Department of Electrical Engineering and Computer Science at Syracuse University. With extensive expertise in computer engineering, his research focuses on energy-efficient computing, hardware security, and embedded systems. He has made significant contributions to the field through his work on power-aware computing architectures and system-level design optimization. Professor Jones is dedicated to advancing engineering education and fostering innovation in computing technologies, leading initiatives that bridge academic research with real-world applications.</p>                       
+                    </div>
+                </div>
+
+                <div class="speaker-card">
+                    <img src="Stephanie VanWagner.jpeg" alt="Stephanie VanWagner" class="speaker-img">
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Stephanie VanWagner</h3>
+                        <p class="speaker-title">Vice President</p>
+                        <p class="speaker-affiliation">Turing Intelligence</p>
+                        <p class="speaker-bio">As Vice President of Turing Intelligence, she leads Healthcare & Life Sciences and partners with leading pharma, biotech, and frontier labs to build the next generation of responsible, domain-specific AI. Her work focuses on accelerating clinical trials and drug discovery by turning proprietary scientific and clinical data into safe, high-performance intelligence that can be trusted in regulated environments.</p>
+                    </div>
+                </div>
+
+                <div class="speaker-card">
+                    <img src="Haoyu Wang.jpeg" alt="Professor Haoyu Wang" class="speaker-img">
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Professor Haoyu Wang</h3>
+                        <p class="speaker-title">Assistant Professor</p>
+                        <p class="speaker-affiliation">Department of Computer Science<br>University at Albany<br>State University of New York</p>
+                        <p class="speaker-bio">Professor Haoyu Wang is a Computer Science Professor at SUNY Albany, where he leads research in knowledge mining, natural language processing, and machine learning, with a focus on making AI more accessible, and adaptable. His recent work explores parameter-efficient adaptation, knowledge editing, and retrieval-augmented generation (RAG), aiming to enhance the capabilities of large language models under limited resources. He has published over 60 peer-reviewed papers in top-tier venues such as ACL, EMNLP, ICML, ICLR, WWW, NeurIPS, and KDD.</p>
+                    </div>
+                </div>
+
+                <div class="speaker-card">
+                    <img src="Jamison Heard.jpeg" alt="Professor Jamison Heard" class="speaker-img">
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Professor Jamison Heard</h3>
+                        <p class="speaker-title">Assistant Professor</p>
+                        <p class="speaker-affiliation">Department of Electrical and Microelectronic Engineering<br>Kate Gleason College of Engineering<br>Rochester Institute of Technology</p>
+                        <p class="speaker-bio">Jamison Heard received the Bachelor of Science degree in electrical engineering from the University of Evansville, Evansville, IN, USA, in 2013 and the Master of Science degree and Ph.D. in electrical engineering from Vanderbilt University, Nashville, TN, USA, in 2016 and 2019, respectively. He is currently researching adaptive human-robot teams, human-aware reinforcement learning, human-robotic interaction, task recognition, and real-time human state assessment.</p>
+                    </div>
+                </div>
+
+                <div class="speaker-card">
+                    <img src="Yuchen Wu.jpeg" alt="Professor Yuchen Wu" class="speaker-img">
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Professor Yuchen Wu</h3>
+                        <p class="speaker-title">Assistant Professor</p>
+                        <p class="speaker-affiliation">School of Operations Research and Information Engineering<br>Cornell University</p>
+                        <p class="speaker-bio">Yuchen Wu is an assistant professor in Cornell's School of Operations Research and Information Engineering. Prior to Cornell, she was a postdoctoral researcher in the Department of Statistics and Data Science at the Wharton School, University of Pennsylvania. She received her Ph.D. in 2023 from the Department of Statistics at Stanford University, advised by Professor Andrea Montanari. Prior to Stanford, she received her Bachelor's degree in Mathematics from Tsinghua University. Her research lies at the intersection of statistics, machine learning, and game theory, with interests spanning diffusion models, high-dimensional statistics, statistical sampling, and mechanism design.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="sponsors">
+            <h2 class="section-title">Our Sponsors</h2>
+            <div class="sponsors-placeholder">
+                <p>Sponsor information coming soon...</p>
+                <p style="margin-top: 20px; font-size: 0.9em;">Interested in sponsoring? Contact us for sponsorship opportunities.</p>
+            </div>
+        </section>
+
+        <section class="section" id="committee">
+            <h2 class="section-title">Organizing Committee</h2>
+            <div class="committee-placeholder">
+                <p>Organizing committee information coming soon...</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Syracuse University | Department of Electrical and Computer Science</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                document.getElementById('navMenu').classList.remove('active');
+                
+                document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+                
+                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const targetPosition = targetSection.offsetTop - navHeight;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            const navHeight = document.querySelector('.navbar').offsetHeight;
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - navHeight - 100;
+                const sectionHeight = section.offsetHeight;
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
