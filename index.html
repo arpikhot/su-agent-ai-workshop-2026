@@ -125,14 +125,22 @@
             50% { opacity: 1; }
         }
 
+        /* .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        } */
+
         .hero-content {
             max-width: 1400px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
+            text-align: center;
         }
 
-        .hero-welcome {
+        /* .hero-welcome {
             font-size: 1.8em;
             font-weight: 600;
             letter-spacing: 3px;
@@ -140,9 +148,29 @@
             margin-bottom: 20px;
             opacity: 0.9;
             color: #D44500;
+        } */
+
+        .hero-welcome {
+            font-size: 1.8em;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.9;
+            color: #D44500;
         }
 
-        .hero h1 {
+        .hero-organized {
+            font-size: 0.95em;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            margin-bottom: 30px;
+            opacity: 1;
+            color: #ffffff;
+            font-style: italic;
+        }
+
+        /* .hero h1 {
             font-size: 4.5em;
             font-weight: 900;
             line-height: 1;
@@ -153,13 +181,33 @@
 
         .hero h1 span {
             display: block;
+        } */
+         
+        .hero h1 {
+            font-size: 4.5em;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            letter-spacing: -2px;
+            text-transform: uppercase;
         }
 
-        .hero-details {
+        .hero h1 span {
+            display: inline;
+        }
+        /* .hero-details {
             display: flex;
             gap: 50px;
             margin: 40px 0;
             flex-wrap: wrap;
+        } */
+
+        .hero-details {
+            display: flex;
+            gap: 50px;
+            margin: 40px auto;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .detail-box {
@@ -186,7 +234,7 @@
             color: #D44500;
         }
 
-        .hero-description {
+        /* .hero-description {
             max-width: 1200px;
             font-size: 1.15em;
             line-height: 1.7;
@@ -199,6 +247,22 @@
             line-height: 1.7;
             opacity: 0.9;
             max-width: 1200px;
+        } */
+
+        .hero-description {
+            max-width: 1200px;
+            font-size: 1.15em;
+            line-height: 1.7;
+            margin: 30px auto;
+            opacity: 0.95;
+        }
+
+        .hero-cta {
+            font-size: 1.05em;
+            line-height: 1.7;
+            opacity: 0.9;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .register-section {
@@ -442,9 +506,10 @@
 
         .speaker-img {
             width: 100%;
-            height: 300px;
-            object-fit: cover;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            height: 400px;
+            object-fit: contain;
+            object-position: center;
+            background: #ffffff;
         }
 
         .speaker-info {
@@ -508,6 +573,74 @@
             font-size: 1.1em;
             margin-top: 30px;
         }
+
+        .committee-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .committee-member {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .committee-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(212, 69, 0, 0.15);
+        }
+
+        .committee-img {     
+            width: 180px;
+            height: 180px;
+            min-width: 180px;
+            min-height: 180px;         
+            border-radius: 10px;
+            object-fit: cover;
+            object-position: center center;
+            flex-shrink: 0;
+            image-rendering: -webkit-optimize-contrast;
+            -ms-interpolation-mode: bicubic;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0) scale(1);
+            -webkit-transform: translateZ(0) scale(1);
+            will-change: transform;
+            filter: contrast(1.02) brightness(1.01);
+        }
+        .committee-info {
+            text-align: left;
+            flex: 1;
+        }
+
+        .committee-name {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #D44500;
+            margin-bottom: 8px;
+        }
+
+        .committee-role {
+            font-size: 1.05em;
+            font-weight: 600;
+            color: #000E54;
+            margin-bottom: 5px;
+        }
+
+        .committee-dept {
+            font-size: 0.95em;
+            color: #666;
+            line-height: 1.6;
+        }
+
+/* Sponsors Section */
 
         /* Sponsors Section */
         .sponsors-grid {
@@ -603,6 +736,11 @@
             }
         }
 
+        .committee-member:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 30px rgba(212, 69, 0, 0.15);
+        }
+
         @media (max-width: 768px) {
             .menu-toggle {
                 display: flex;
@@ -696,16 +834,20 @@
     <section class="hero" id="about">
         <div class="hero-content">
             <div class="hero-welcome fade-in">Welcome to SU Agent-AI Workshop 2026</div>
+                <div class="hero-organized fade-in">Organized by Department of Electrical Engineering and Computer Science</div>
             <h1 class="fade-in">
-                <span>FROM MODELS TO</span>
+                <!-- <span>FROM MODELS TO</span>
                 <span>INTELLIGENT</span>
-                <span>AI AGENTS</span>
+                <span>AI AGENTS</span> -->
+
+                <span>FROM MODELS TO INTELLIGENT AI AGENTS</span>
+
             </h1>
             
             <div class="hero-details fade-in-delay">
                 <div class="detail-box">
                     <div class="detail-label">Date & Time</div>
-                    <div class="detail-value">Friday, December 20, 2026<br>8:00AM – 1:00PM</div>
+                    <div class="detail-value">Friday, February 20, 2026<br>8:00AM – 1:00PM</div>
                 </div>
                 <div class="detail-box">
                     <div class="detail-label">Location</div>
@@ -723,8 +865,8 @@
 
             <div class="register-section fade-in-delay-3">
                 <p class="register-invitation">You are invited to join SU Agent AI Workshop 2026 - connect, learn, and drive innovation in your community.</p>
-                <p class="register-prompt">Please register to participate:</p>
-                <a href="YOUR_GOOGLE_FORM_LINK_HERE" target="_blank" class="register-button">Register Now</a>
+                <p class="register-prompt"> Pre-registration is required to attend:</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfWxH6Xp36jmRqw2GYZEkezHxlN6opXBly3r6xYSyNj_dgl6g/viewform?usp=header" target="_blank" class="register-button">Register Now</a>
             </div>
         </div>
     </section>
@@ -736,7 +878,7 @@
         <div class="description-section">
             <h2 class="description-title">About the Workshop</h2>
 
-            <p>SU Agent AI Workshop 2026 brings together students, researchers, practitioners, and industry professionals to explore the latest advances in autonomous and semi-autonomous AI agents. As agent-based systems increasingly shape real-world applications—from scientific discovery and decision support to software engineering and robotics—this workshop provides a focused forum for sharing ideas, methods, and emerging best practices.</p>
+            <p>SU Agent AI Workshop 2026 brings together students, researchers, practitioners, and industry professionals to explore the latest advances in autonomous and semi-autonomous AI agents. As agent-based systems increasingly shape real-world applications from scientific discovery and decision support to software engineering and robotics this workshop provides a focused forum for sharing ideas, methods, and emerging best practices.</p>
             
             <p>The program will feature five confirmed invited talks delivered by experts from academia and industry. Each talk will provide in-depth perspectives on cutting-edge topics in Agent AI, including agent architectures, reasoning and planning, multi-agent coordination, tool-augmented agents, learning in complex environments, safety, and real-world applications. Participants will gain insights into both foundational research and applied perspectives on building, evaluating, and deploying agent-based AI systems.</p>
             
@@ -907,21 +1049,37 @@
         <section class="section" id="sponsors">
             <h2 class="section-title">Our Sponsors</h2>
             <div class="sponsors-placeholder">
-                <p>Sponsor information coming soon...</p>
-                <p style="margin-top: 20px; font-size: 0.9em;">Interested in sponsoring? Contact us for sponsorship opportunities.</p>
-            </div>
+                <p style="margin-top: 0; font-size: 0.9em;">Interested in sponsoring?</p>
+                <p style="margin-top: 10px; font-size: 0.9em;">Please contact: Professor Priyantha Kumarawadu, <a href="mailto:spkumara@syr.edu" style="color: #D44500; text-decoration: none; font-weight: 600;">spkumara@syr.edu</a></p>          
+             </div>
         </section>
 
         <section class="section" id="committee">
             <h2 class="section-title">Organizing Committee</h2>
-            <div class="committee-placeholder">
-                <p>Organizing committee information coming soon...</p>
+            <div class="committee-list">
+                <div class="committee-member">
+                    <img src="priyantha-kumarawadu.jpg" alt="Professor Priyantha Kumarawadu" class="committee-img">
+                    <div class="committee-info">
+                        <div class="committee-name">Professor Priyantha Kumarawadu</div>
+                        <div class="committee-role">Associate Teaching Professor</div>
+                        <div class="committee-dept">Department of Electrical Engineering and Computer Science</div>
+                    </div>
+                </div>
+                
+                <div class="committee-member">
+                    <img src="arpita_photo.png" alt="Arpita Ashok Khot" class="committee-img">
+                    <div class="committee-info">
+                        <div class="committee-name">Arpita Ashok Khot</div>
+                        <div class="committee-role">MS CS Student</div>
+                        <div class="committee-dept">Department of Electrical Engineering and Computer Science</div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
 
     <footer>
-        <p>&copy; 2024 Syracuse University | Department of Electrical and Computer Science</p>
+        <p>&copy; 2026 Syracuse University | Department of Electrical Engineering and Computer Science</p>
     </footer>
 
     <script>
